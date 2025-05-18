@@ -40,9 +40,18 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qizhi
     type: com.alibaba.druid.pool.DruidDataSource
+  dubbo:
+    application:
+      name: dubbo-provider
+    registry:
+      protocol: zookeeper
+      address: 127.0.0.1:2181
+      monitor:
+        protocol: register
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml    # mapper映射文件位置
   type-aliases-package: com.qizhi.user.domain    # 实体类所在的位置
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #用于控制台打印sql语句
+
