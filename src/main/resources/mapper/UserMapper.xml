@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qizhi.user.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.qizhi.user.domain.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="location_x" jdbcType="INTEGER" property="locationX" />
+    <result column="location_y" jdbcType="INTEGER" property="locationY" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="expire" jdbcType="TIMESTAMP" property="expire" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, phone_number, location_x, location_y, id_card, user_type, token, expire
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qizhi.user.domain.User">
+    insert into user (user_id, phone_number, location_x, 
+      location_y, id_card, user_type, 
+      token, expire)
+    values (#{userId,jdbcType=INTEGER}, #{phoneNumber,jdbcType=VARCHAR}, #{locationX,jdbcType=INTEGER}, 
+      #{locationY,jdbcType=INTEGER}, #{idCard,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qizhi.user.domain.User">
+    update user
+    set phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      location_x = #{locationX,jdbcType=INTEGER},
+      location_y = #{locationY,jdbcType=INTEGER},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      expire = #{expire,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据手机号查询 -->
+  <select id="selectByPhone" resultType="com.qizhi.user.domain.User">
+    select <include refid="Base_Column_List" />
+    from user where phone_number = #{phoneNumber}
+  </select>
+  <select id="selectByToken" resultType="com.qizhi.user.domain.User">
+    select <include refid="Base_Column_List" />
+    from user where token = #{token}
+  </select>
+</mapper>
