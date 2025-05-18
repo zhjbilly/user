@@ -8,6 +8,7 @@ import com.qizhi.user.service.IUserService;
 import com.qizhi.user.util.BizException;
 import com.qizhi.user.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,8 +88,8 @@ public class UserService implements IUserService {
     @Override
     public UserDTO tokenValid(String token) {
         User existUser = userMapper.selectByToken(token);
-        if(null == existUser || DateUtils.getNowDate().after(existUser.getExpire())){
-            log.warn("用户不存在或者token已失效");
+        if(null == existUser || null == existUser.getExpire() || DateUtils.getNowDate().after(existUser.getExpire())){
+            log.warn("用户不存在或者token已失效, token = {}", token);
             return null;
         }
         UserDTO userDTO = new UserDTO();

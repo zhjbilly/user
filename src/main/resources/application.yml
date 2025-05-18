@@ -42,7 +42,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   dubbo:
     application:
-      name: dubbo-provider
+      name: user
     registry:
       protocol: zookeeper
       address: 127.0.0.1:2181
