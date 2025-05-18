@@ -7,8 +7,6 @@ import com.qizhi.user.dto.UserDTO;
 import com.qizhi.user.dto.UserLogin;
 import com.qizhi.user.dto.UserRegister;
 import com.qizhi.user.service.IUserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("/user")
-@Api("用户")
 public class UserController {
 
     @Autowired
@@ -34,7 +31,6 @@ public class UserController {
     /**
      * 用户注册
      */
-    @ApiOperation(value = "用户注册")
     @PostMapping("/register")
     public CommonResult<Void> register(@Validated UserRegister user){
         if(UserType.STAFF.name().equals(user.getUserType())){
@@ -61,7 +57,6 @@ public class UserController {
     /**
      * 用户登陆
      */
-    @ApiOperation(value = "用户登陆")
     @PostMapping("/login")
     public CommonResult<String> login(@Valid UserLogin user){
         UserDTO login = userService.login(user.getPhoneNumber());
