@@ -44,11 +44,11 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <!-- 根据手机号查询 -->
-  <select id="selectByPhone" resultType="com.qizhi.user.domain.User">
+  <select id="selectByPhone" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from user where phone_number = #{phoneNumber}
   </select>
-  <select id="selectByToken" resultType="com.qizhi.user.domain.User">
+  <select id="selectByToken" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from user where token = #{token}
   </select>

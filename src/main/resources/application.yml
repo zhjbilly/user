@@ -1,7 +1,7 @@
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8086
+  port: 8081
   servlet:
     # 应用的访问路径
     context-path: /
@@ -38,7 +38,7 @@ spring:
     username: root
     password: 111111
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/user
+    url: jdbc:mysql://localhost:3306/qizhi
     type: com.alibaba.druid.pool.DruidDataSource
 
 mybatis:

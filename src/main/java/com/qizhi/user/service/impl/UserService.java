@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -18,9 +19,9 @@ import java.util.UUID;
 public class UserService implements IUserService {
 
     /**
-     * 默认失效时间
+     * TODO 默认失效时间（默认30m）
      */
-    public static final int EXPIRE_TIME = 1;
+    public static final int EXPIRE_TIME = 30;
 
     @Autowired
     private UserMapper userMapper;
@@ -51,7 +52,7 @@ public class UserService implements IUserService {
         }
         // 注册
         User user = new User();
-        user.setUserType(UserType.STAFF.name());
+        user.setUserType(UserType.CUSTOMER.name());
         user.setLocationX(locationX);
         user.setLocationY(locationY);
         user.setPhoneNumber(phoneNumber);
@@ -68,14 +69,18 @@ public class UserService implements IUserService {
             throw new BizException("手机号未注册，请先注册!");
         }
         // 用户登录
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserId(existUser.getUserId());
-        userDTO.setPhoneNumber(existUser.getPhoneNumber());
-        userDTO.setToken(UUID.randomUUID().toString());
-        userDTO.setExpire(DateUtils.addMinutes(DateUtils.getNowDate(), EXPIRE_TIME));
+        String token = UUID.randomUUID().toString();
+        Date expire = DateUtils.addMinutes(DateUtils.getNowDate(), EXPIRE_TIME);
+        existUser.setToken(token);
+        existUser.setExpire(expire);
         if(1 > userMapper.updateByPrimaryKey(existUser)){
             throw new RuntimeException("登陆失败,请联系管理员");
         }
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserId(existUser.getUserId());
+        userDTO.setPhoneNumber(existUser.getPhoneNumber());
+        userDTO.setToken(token);
+        userDTO.setExpire(expire);
         return userDTO;
     }
 

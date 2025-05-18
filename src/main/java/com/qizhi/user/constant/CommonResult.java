@@ -29,9 +29,9 @@ public class CommonResult<T> {
     /**
      * 成功返回结果
      */
-    public static <T> CommonResult<T> success(String message) {
-        return new CommonResult<T>(ExceptionCodeEnum.SUCCESS.getCode(), message, null);
-    }
+//    public static <T> CommonResult<T> success(String message) {
+//        return new CommonResult<T>(ExceptionCodeEnum.SUCCESS.getCode(), message, null);
+//    }
 
     /**
      * 成功返回结果
