@@ -5,7 +5,7 @@ public enum UserType {
     STAFF("staff"),CUSTOMER("customer");
     String type;
 
-    UserType(String msg){
+    UserType(String type){
        this.type  = type;
     }
 }
