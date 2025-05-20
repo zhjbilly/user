@@ -93,6 +93,7 @@ public class UserService implements IUserService {
             return null;
         }
         UserDTO userDTO = new UserDTO();
+        userDTO.setUserId(existUser.getUserId());
         userDTO.setUserType(existUser.getUserType());
         userDTO.setIdCard(existUser.getIdCard());
         userDTO.setLocationX(existUser.getLocationX());
